@@ -1,8 +1,11 @@
-# vscarbon README
+# VSCarbon
 
-This is the README for your extension "vscarbon". After writing up a brief description, we recommend including the following sections.
+This project is part of the submission for Branch magazine issue 9. The goal is to explores how developers can be more mindful of their digital footprint, starting with their everyday tools: code editors (like VSCode) and GitHub.
 
 ## Features
+
+- [x] Status bar showing live grid-data 🌱 Low Carbon (220 gCO₂/kWh)
+
 
 Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
 
