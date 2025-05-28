@@ -16,6 +16,10 @@
       {
         "command": "vscarbon.showCarbon",
         "title": "Show Carbon"
+      },
+      {
+        "command": "vscarbon.showGridDetails",
+        "title": "Show Grid Details"
       }
     ]
   },
