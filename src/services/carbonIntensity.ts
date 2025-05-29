@@ -15,6 +15,7 @@ export default async function getCarbonIntensity(postcode?: string) {
     return {
       intensity: regionalData.data[0].intensity.forecast,
       index: regionalData.data[0].intensity.index,
+      mix: regionalData.data[0].generationmix,
       region: regionalData.shortname || "England",
     }
   } catch (error) {
