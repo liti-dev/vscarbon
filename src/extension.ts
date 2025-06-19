@@ -92,7 +92,20 @@ function showGridDetails() {
                 '#ff9800', '#00bcd4', '#ffeb3b', '#e91e63', 
               ]
             }]
-          }
+          },
+          options: {
+    plugins: {
+      legend: {
+        labels: {
+          color: "#9c27b0" 
+        }
+      },
+      tooltip: {
+        bodyColor: "#9c27b0" 
+      }
+    }
+  }
+
         });
       });
     </script>
