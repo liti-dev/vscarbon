@@ -1,20 +1,28 @@
 # VSCarbon
+This project is part of the submission for [Branch magazine](https://branch.climateaction.tech/)'s issue 9. The goal is to explore how developers can be more mindful of their digital footprint, starting with their everyday tools: code editors (like VSCode) and GitHub. Coding-related activities consume energy.
 
-This project is part of the submission for Branch magazine issue 9. The goal is to explores how developers can be more mindful of their digital footprint, starting with their everyday tools: code editors (like VSCode) and GitHub.
+Why not doing these energy-intensive tasks during low carbon periods (when the grid's carbon intensity is low)?
+
+<img src="https://github.com/user-attachments/assets/c4433f56-9278-47ea-a6e1-d1e1cc27ae9a" width="500"/>
+<img src="https://github.com/user-attachments/assets/c0192d58-6444-4963-9a8c-97d109ec3518" width="500"/>
+
+
+
 
 ## Features
 
-- [x] Status bar showing live grid-data 🌱 Low Carbon (220 gCO₂/kWh)
+- [x] Status bar shows carbon intensity from electricity grid based on location (currently only works for UK postcodes)
+- [ ] Input postcode
+- [x] Animal emoji changes according to carbon level
+- [x] A breakdown of electricity mix
 
-
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
+## How to run
+The extension hasn't been published yet. If you like to try it out:
+- Step 1: Clone the repo
+- Step 2: Manually change postcode in func updateCarbonIntensity, file extension.ts
+- Step 3: Press F5 or Fn + F5 to enter Testing mode
+- Step 4: Enter command mode (Ctr+Shift+P), choose command Show Carbon
+  
 ## Requirements
 
 If you have any requirements or dependencies, add a section describing those and how to install and configure them.
