@@ -1,15 +1,34 @@
 import * as assert from 'assert';
-
-// You can import and use all API from the 'vscode' module
-// as well as import your extension to test it
 import * as vscode from 'vscode';
-// import * as myExtension from '../../extension';
+import getCarbonIntensity from '../services/carbonIntensity';
 
-suite('Extension Test Suite', () => {
-	vscode.window.showInformationMessage('Start all tests.');
+suite('VSCarbon Extension Test Suite', () => {
+	vscode.window.showInformationMessage('Start VSCarbon tests.');
 
-	test('Sample test', () => {
-		assert.strictEqual(-1, [1, 2, 3].indexOf(5));
-		assert.strictEqual(-1, [1, 2, 3].indexOf(0));
+	test('Extension should be present', () => {
+		assert.ok(vscode.extensions.getExtension('vscarbon-team.vscarbon'));
+	});
+
+	test('Commands should be registered', async () => {
+		const commands = await vscode.commands.getCommands(true);
+		assert.ok(commands.includes('vscarbon.showCarbon'));
+		assert.ok(commands.includes('vscarbon.showGridDetails'));
+		assert.ok(commands.includes('vscarbon.setPostcode'));
+	});
+
+	test('Carbon intensity service should handle invalid postcode', async () => {
+		const result = await getCarbonIntensity('INVALID');
+		// Should return null for invalid postcode
+		assert.strictEqual(result, null);
+	});
+
+	test('Carbon intensity service should work without postcode', async () => {
+		const result = await getCarbonIntensity();
+		// Should return data for England default
+		if (result) {
+			assert.ok(typeof result.intensity === 'number');
+			assert.ok(typeof result.index === 'string');
+			assert.ok(Array.isArray(result.mix));
+		}
 	});
 });

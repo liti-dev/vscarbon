@@ -1,14 +1,26 @@
 {
   "name": "vscarbon",
-  "displayName": "vscarbon",
-  "description": "encourages low-carbon coding habits with live grid data",
-  "version": "0.0.1",
+  "displayName": "VSCarbon",
+  "description": "Encourages low-carbon coding habits with live electricity grid data",
+  "version": "0.1.0",
+  "publisher": "vscarbon-team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liti-dev/vscarbon"
+  },
+  "keywords": ["carbon", "sustainability", "environment", "energy", "green-coding", "electricity-grid"],
+  "icon": "icon.png",
   "engines": {
     "vscode": "^1.100.0"
   },
   "categories": [
     "Other"
   ],
+  "galleryBanner": {
+    "color": "#4CAF50",
+    "theme": "light"
+  },
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
@@ -25,7 +37,24 @@
         "command": "vscarbon.setPostcode",
         "title": "Set Postcode"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "VSCarbon",
+      "properties": {
+        "vscarbon.autoStart": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically start monitoring carbon intensity when VS Code opens"
+        },
+        "vscarbon.updateInterval": {
+          "type": "number",
+          "default": 30,
+          "minimum": 5,
+          "maximum": 120,
+          "description": "Update interval in minutes for carbon intensity data"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
