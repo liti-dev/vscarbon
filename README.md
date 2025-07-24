@@ -12,9 +12,9 @@ Why not doing these energy-intensive tasks during low carbon periods (when the g
 ## Features
 
 - [x] Status bar shows carbon intensity from electricity grid based on location (currently only works for UK postcodes)
-- [ ] Input postcode
+- [x] User can input postcode (currently only UK postcode is valid)
 - [x] Animal emoji changes according to carbon level
-- [x] A breakdown of electricity mix
+- [x] Clicking status bar shows a breakdown of electricity mix
 
 ## How to run
 The extension hasn't been published yet. If you like to try it out:
