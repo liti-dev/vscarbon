@@ -20,9 +20,8 @@ Why not doing these energy-intensive tasks during low carbon periods (when the g
 ## How to run
 The extension hasn't been published yet. If you like to try it out:
 - Step 1: Clone the repo
-- Step 2: Manually change postcode in func updateCarbonIntensity, file extension.ts
-- Step 3: Press F5 or Fn + F5 to enter Testing mode
-- Step 4: Enter command mode (Ctr+Shift+P), choose command Show Carbon
+- Step 2: Press F5 or Fn + F5 to enter Testing mode
+- Step 3: From command palette (Ctr+Shift+P), choose command Show Carbon
   
 ## Requirements
 
