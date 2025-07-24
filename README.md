@@ -1,5 +1,5 @@
 # VSCarbon
-This project is part of the submission for [Branch magazine](https://branch.climateaction.tech/)'s issue 9. The goal is to explore how developers can be more mindful of their digital footprint, starting with their everyday tools: code editors (like VSCode) and GitHub. Coding-related activities consume energy.
+This project is part of the submission for [Branch magazine](https://branch.climateaction.tech/issues/issue-9/everyday-green-coding-bringing-nature-and-grid-awareness-to-visual-studio-code/)'s issue 9. The goal is to explore how developers can be more mindful of their digital footprint, starting with their everyday tools: code editors (like VSCode) and GitHub. Coding-related activities consume energy.
 
 Why not doing these energy-intensive tasks during low carbon periods (when the grid's carbon intensity is low)?
 
@@ -15,6 +15,7 @@ Why not doing these energy-intensive tasks during low carbon periods (when the g
 - [x] User can input postcode (currently only UK postcode is valid)
 - [x] Animal emoji changes according to carbon level
 - [x] Clicking status bar shows a breakdown of electricity mix
+- [ ] Count weekly low carbon commits and save them locally
 
 ## How to run
 The extension hasn't been published yet. If you like to try it out:
