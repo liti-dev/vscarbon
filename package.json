@@ -20,6 +20,10 @@
       {
         "command": "vscarbon.showGridDetails",
         "title": "Show Grid Details"
+      },
+      {
+        "command": "vscarbon.setPostcode",
+        "title": "Set Postcode"
       }
     ]
   },
