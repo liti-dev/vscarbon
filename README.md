@@ -26,10 +26,9 @@ Encourage low-carbon coding habits with real-time electricity grid data! VSCarbo
 ## Getting Started
 
 1. Open Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`)
-2. Run `VSCarbon: Set Postcode` and enter your UK postcode (e.g., "SW1A", "M1", "AL10")
+2. Run `VSCarbon: Set Postcode` and enter your UK outward postcode (e.g., "SW1A", "M1", "AL10")
 3. Run `VSCarbon: Show Carbon` to start monitoring
-4. Run `VSCarbon: Show Carbon` to start monitoring
-5. Check the status bar for current carbon intensity!
+4. Check the status bar for current carbon intensity and click on it for electricity mix breakdown
 
 ## Commands
 
