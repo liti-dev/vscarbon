@@ -9,7 +9,14 @@
     "type": "git",
     "url": "https://github.com/liti-dev/vscarbon"
   },
-  "keywords": ["carbon", "sustainability", "environment", "energy", "green-coding", "electricity-grid"],
+  "keywords": [
+    "carbon",
+    "sustainability",
+    "environment",
+    "energy",
+    "green-coding",
+    "electricity-grid"
+  ],
   "icon": "icon.png",
   "engines": {
     "vscode": "^1.74.0"
@@ -67,7 +74,7 @@
   "devDependencies": {
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
-    "@types/vscode": "^1.100.0",
+    "@types/vscode": "^1.74.0",
     "@typescript-eslint/eslint-plugin": "^8.31.1",
     "@typescript-eslint/parser": "^8.31.1",
     "@vscode/test-cli": "^0.0.10",
