@@ -12,7 +12,7 @@
   "keywords": ["carbon", "sustainability", "environment", "energy", "green-coding", "electricity-grid"],
   "icon": "icon.png",
   "engines": {
-    "vscode": "^1.100.0"
+    "vscode": "^1.74.0"
   },
   "categories": [
     "Other"
