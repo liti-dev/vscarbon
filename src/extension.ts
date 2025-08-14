@@ -97,7 +97,7 @@ function showCarbon() {
 
 async function showDashboard() {
   if (!latestCarbonData) {
-    vscode.window.showWarningMessage('No carbon data available. Please set your postcode first using the "VSCarbon: Set Postcode" command.')
+    vscode.window.showWarningMessage('No carbon data available. Set your postcode first using "VSCarbon: Set Postcode" command.')
     return
   }
 
