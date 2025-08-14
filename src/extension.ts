@@ -1,5 +1,7 @@
 import * as vscode from "vscode"
 import getCarbonIntensity from "./services/carbonIntensity"
+import { initCommitTracker, setupGitCommitListener, updateCarbonData, getCommitStats, resetCommitHistory, testCommitTracking } from "./utils/commitTracker"
+import { getDashboardHtml } from "./utils/webviewUtils"
 
 let carbonStatusBarItem: vscode.StatusBarItem
 let latestCarbonData: any = null
@@ -10,17 +12,23 @@ export function activate(context: vscode.ExtensionContext) {
   vscode.window.showInformationMessage(`VSCarbon is active`)
   carbonStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100)
 
-  // clicking on status item will show grid composition details
-  carbonStatusBarItem.command = "vscarbon.showGridDetails"
+  // show dashboard when clicking on status bar
+  carbonStatusBarItem.command = "vscarbon.showDashboard"
   context.subscriptions.push(carbonStatusBarItem)
   
-  // Register commands
+  initCommitTracker(context, latestCarbonData)
+  setupGitCommitListener()
+  
+  // register commands
   context.subscriptions.push(
-    vscode.commands.registerCommand("vscarbon.showGridDetails", showGridDetails),
     vscode.commands.registerCommand("vscarbon.showCarbon", showCarbon),
-    vscode.commands.registerCommand("vscarbon.setPostcode", setPostcode)
-  )
+    vscode.commands.registerCommand("vscarbon.showDashboard", showDashboard),
+    vscode.commands.registerCommand("vscarbon.setPostcode", setPostcode),
+    vscode.commands.registerCommand("vscarbon.testCommitTracking", testCommitTracking),
+    vscode.commands.registerCommand("vscarbon.resetCommitStats", resetCommitStats)
+  )  
 }
+
 async function updateCarbonIntensity() {
   const postcode = await getPostcode()
   if (!postcode) {
@@ -36,7 +44,9 @@ async function updateCarbonIntensity() {
     return
   }
   latestCarbonData = data
-  console.log("lastest data", latestCarbonData)
+  
+  // sync commit tracker with new carbon data
+  updateCarbonData(latestCarbonData)
 
   // Set icon based on intensity index
   // Icon list: 🌱 🌻 🍃 🌧️ 🌞 💚 🦥
@@ -85,7 +95,7 @@ function showCarbon() {
   setInterval(updateCarbonIntensity, 30 * 60 * 1000)
 }
 
-function showGridDetails() {
+async function showDashboard() {
   if (!latestCarbonData) {
     vscode.window.showWarningMessage('No carbon data available. Please set your postcode first using the "VSCarbon: Set Postcode" command.')
     return
@@ -99,61 +109,31 @@ function showGridDetails() {
     },
     { labels: [], values: [] }
   )
-  console.log("mix", gridMix)
-  const panel = vscode.window.createWebviewPanel(
-    "electricityMix",
-    "Electricity Mix",
-    vscode.ViewColumn.One,
-    { enableScripts: true }
-  )
-  panel.webview.html = `<html>
-  <head>
-    <meta http-equiv="Content-Security-Policy">
-    <style>
-      #pieChart {
-        width: 400px;
-        height: 400px;
-        display: block;
-        margin: 0 auto;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Electricity Mix</h1>
-    <h2>Carbon intensity in ${latestCarbonData.region}: ${latestCarbonData.intensity} gCO₂/kWh</h2>
-    <canvas id="pieChart" width="400" height="400"></canvas>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const ctx = document.getElementById('pieChart').getContext('2d');
-        new Chart(ctx, {
-          type: 'pie',
-          data: {
-            labels: ${JSON.stringify(gridMix.labels)},
-            datasets: [{
-              data: ${JSON.stringify(gridMix.values)},
-              backgroundColor: [
-                '#4caf50', '#607d8b', '#8bc34a', '#f44336', '#9c27b0',
-                '#ff9800', '#00bcd4', '#ffeb3b', '#e91e63', 
-              ]
-            }]
-          },
-          options: {
-    plugins: {
-      legend: {
-        labels: {
-          color: "#9c27b0" 
-        }
-      },
-      tooltip: {
-        bodyColor: "#9c27b0" 
-      }
-    }
-  }
+  
+  // get commit stats for the dashboard
+  const stats = await getCommitStats()
+  stats.sustainabilityRate = stats.totalCommits > 0 
+    ? Math.round((stats.sustainableCommits / stats.totalCommits) * 100) 
+    : 0
 
-        });
-      });
-    </script>
-  </body>
-</html>`
+  
+  const panel = vscode.window.createWebviewPanel(
+    "dashboard",
+    "Dashboard",
+    vscode.ViewColumn.One,
+    { 
+      enableScripts: true,
+      retainContextWhenHidden: true
+    }
+  )
+
+
+  panel.webview.html = getDashboardHtml(extensionContext, {
+    carbonData: latestCarbonData,
+    gridMix,
+    stats
+  })
+}
+async function resetCommitStats() {
+  await resetCommitHistory()
 }

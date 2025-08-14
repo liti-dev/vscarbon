@@ -12,7 +12,7 @@ Encourage low-carbon coding habits with real-time electricity grid data! VSCarbo
 ✅ **Real-time Carbon Intensity**: Status bar displays current carbon intensity from the UK electricity grid  
 ✅ **Location-based Data**: Enter your UK postcode for regional carbon intensity data  
 ✅ **Visual Indicators**: Emoji changes based on carbon levels (😸 for low, 😿 for high)  
-✅ **Electricity Mix Breakdown**: Click the status bar to see detailed grid composition  
+✅ **Electricity Mix Breakdown**: Click status bar to see detailed grid composition  
 🔄 **Auto-refresh**: Updates every 30 minutes to keep data current  
 
 ## Installation
@@ -30,13 +30,13 @@ Encourage low-carbon coding habits with real-time electricity grid data! VSCarbo
 1. Open Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`)
 2. Run `VSCarbon: Set Postcode` and enter your UK outward postcode (e.g., "SW1A", "M1", "AL10")
 3. Run `VSCarbon: Show Carbon` to start monitoring
-4. Check the status bar for current carbon intensity and click on it for electricity mix breakdown
+4. Check the status bar for current carbon intensity, click on it for dashboard showing electricity mix and sustainable commit stats
 
 ## Commands
 
 - `VSCarbon: Show Carbon` - Start monitoring carbon intensity
-- `VSCarbon: Set Postcode` - Configure your UK postcode for regional data  
-- `VSCarbon: Show Grid Details` - View detailed electricity mix breakdown
+- `VSCarbon: Set Postcode` - Configure your UK postcode for regional carbon intensity data
+- `VSCarbon: Reset Commit Stats` - Clear sustainable commit history
 
 ## Requirements
 
@@ -47,7 +47,6 @@ Encourage low-carbon coding habits with real-time electricity grid data! VSCarbo
 
 - Currently supports UK postcodes only
 - Requires internet connection for real-time data
-- Chart.js loads from CDN (working on bundling for offline use)
 
 ## Release Notes
 
