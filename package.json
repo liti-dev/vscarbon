@@ -2,7 +2,7 @@
   "name": "vscarbon",
   "displayName": "VSCarbon",
   "description": "Encourages low-carbon coding habits with live electricity grid data",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "vscarbon-team",
   "license": "MIT",
   "repository": {
