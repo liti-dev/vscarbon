@@ -12,13 +12,14 @@ Encourage low-carbon coding habits with real-time electricity grid data! VSCarbo
 ✅ **Real-time Carbon Intensity**: Status bar displays current carbon intensity from the UK electricity grid  
 ✅ **Location-based Data**: Enter your UK postcode for regional carbon intensity data  
 ✅ **Visual Indicators**: Emoji changes based on carbon levels (😸 for low, 😿 for high)  
-✅ **Electricity Mix Breakdown**: Click status bar to see detailed grid composition  
+✅ **Commit Tracker**: Count sustainable git commits  
+✅ **Dashboard**: Click status bar to see detailed grid mix and commit stats  
 🔄 **Auto-refresh**: Updates every 30 minutes to keep data current  
 
 ## Installation
 
 ### Option 1: Install from .vsix (Try it now!)
-1. Download the latest `vscarbon-0.1.0.vsix` from [Releases](https://github.com/liti-dev/vscarbon/releases)
+1. Download the latest version from [Releases](https://github.com/liti-dev/vscarbon/releases)
 2. In VS Code: Go to Extension -> More actions -> Install from VSIX, or `Ctrl+Shift+P` → "Extensions: Install from VSIX..."
 3. Select the downloaded .vsix file
 
@@ -36,7 +37,7 @@ Encourage low-carbon coding habits with real-time electricity grid data! VSCarbo
 
 - `VSCarbon: Show Carbon` - Start monitoring carbon intensity
 - `VSCarbon: Set Postcode` - Configure your UK postcode for regional carbon intensity data
-- `VSCarbon: Reset Commit Stats` - Clear sustainable commit history
+- `VSCarbon: Reset Commit Stats` - Clear commit stats
 
 ## Requirements
 
