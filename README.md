@@ -49,15 +49,6 @@ Encourage low-carbon coding habits with real-time electricity grid data! VSCarbo
 - Currently supports UK postcodes only
 - Requires internet connection for real-time data
 
-## Release Notes
-
-### 0.1.0
-
-Initial release of VSCarbon:
-- Real-time UK carbon intensity monitoring
-- Postcode-based regional data
-- Interactive electricity mix visualisation
-- Status bar integration with emoji indicators
 
 ## Data Source
 
