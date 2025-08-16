@@ -1,4 +1,6 @@
 import * as vscode from 'vscode'
+import * as fs from 'fs'
+import * as path from 'path'
 
 export interface CommitStats {
   totalCommits: number
@@ -12,6 +14,7 @@ export interface CommitStats {
 
 let extensionContext: vscode.ExtensionContext
 let latestCarbonData: any = null
+let logWatcher: fs.FSWatcher | null = null
 
 export function initCommitTracker(context: vscode.ExtensionContext, carbonData: any) {
   extensionContext = context
@@ -22,69 +25,81 @@ export function updateCarbonData(carbonData: any) {
   latestCarbonData = carbonData
 }
 
-export function setupGitCommitListener() {
-  // listen for git extension API if available
-  const gitExtension = vscode.extensions.getExtension('vscode.git')?.exports
-  if (gitExtension) {
-    const git = gitExtension.getAPI(1)
-    if (git.repositories.length > 0) {
-      git.repositories.forEach((repo: any) => {
-        repo.state.onDidChange(() => {
-          checkForNewCommit(repo)
-        })
-      })
-    }
-  }
+function getLastCommitHash(logContent: string): string {
+  const lines = logContent.trim().split('\n')
+  if (lines.length === 0) {return ''}
+  
+  const lastLine = lines[lines.length - 1]
+  const parts = lastLine.split(' ')
+  return parts.length >= 2 ? parts[1] : ''
 }
 
-async function checkForNewCommit(repo: any) {
-  // HEAD changes then new commit
+function setupGitLogWatcher() {
+  const workspaceFolder = vscode.workspace.workspaceFolders?.[0]
+  if (!workspaceFolder) {return}
+
+  const gitLogFile = path.join(workspaceFolder.uri.fsPath, '.git', 'logs', 'HEAD')
+  
+  if (!fs.existsSync(gitLogFile)) {
+    console.log('Git log file not found, commit tracking disabled')
+    return
+  }
+
   try {
-    const head = repo.state.HEAD
-    if (!head?.commit) {return}
+    let lastCommitHash = getLastCommitHash(fs.readFileSync(gitLogFile, 'utf8'))
 
-    const lastCommitHash = extensionContext.workspaceState.get<string>('lastCommitHash')
-    
-    if (lastCommitHash !== head.commit) {
-      await extensionContext.workspaceState.update('lastCommitHash', head.commit)
-      await trackCommit()
-    }
+    logWatcher = fs.watch(gitLogFile, () => {
+      try {
+        const newLogContent = fs.readFileSync(gitLogFile, 'utf8')
+        const newCommitHash = getLastCommitHash(newLogContent)
+        
+        // Check if a new, valid commit hash
+        if (newCommitHash && 
+            newCommitHash !== lastCommitHash && 
+            newCommitHash !== '0000000000000000000000000000000000000000') {
+          lastCommitHash = newCommitHash
+          setTimeout(() => trackCommit(), 50)
+        }
+      } catch (error) {
+        console.error('Error reading Git log:', error)
+      }
+    })
+
   } catch (error) {
-    console.error('Error checking for new commit:', error)
+    console.error('Failed to setup Git log watcher:', error)
   }
 }
+
+export function setupGitCommitListener() {
+  setupGitLogWatcher()
+}
+
+
 
 async function trackCommit() {
   const stats = await getCommitStats()
   stats.totalCommits++
 
-  // no carbon data available - still count the commit but no sustainability classification
   if (!latestCarbonData?.index) {    
     vscode.window.showInformationMessage('Commit tracked! Set your postcode to enable carbon-aware tracking.')
     await extensionContext.workspaceState.update('commitStats', stats)
     return
   }
 
-  if (latestCarbonData?.index) {
-    const carbonIndex = latestCarbonData.index.toLowerCase()
-    stats.lastCommitTime = new Date().toISOString()
-    stats.lastCommitCarbon = latestCarbonData.index
+  const carbonIndex = latestCarbonData.index.toLowerCase()
+  stats.lastCommitTime = new Date().toISOString()
+  stats.lastCommitCarbon = latestCarbonData.index
 
-    if (carbonIndex === 'very low') {
-      stats.lowCarbonCommits++
-      stats.sustainableCommits++
-      vscode.window.showInformationMessage(`🌱 Sustainable commit! Very low carbon intensity: ${latestCarbonData.intensity} gCO₂/kWh`)
-    } else if (carbonIndex === 'low') {
-      stats.lowCarbonCommits++
-      stats.sustainableCommits++
-      vscode.window.showInformationMessage(`🌱 Sustainable commit! Low carbon intensity: ${latestCarbonData.intensity} gCO₂/kWh`)
-    } else if (carbonIndex === 'moderate') {
-      stats.moderateCommits++
-      stats.sustainableCommits++
-      vscode.window.showInformationMessage(`🌱 Sustainable commit! Moderate carbon intensity: ${latestCarbonData.intensity} gCO₂/kWh`)
-    } else {
-      vscode.window.showWarningMessage(`⚡ High carbon commit: ${latestCarbonData.intensity} gCO₂/kWh. Consider committing during low-carbon periods.`)
-    }
+  if (carbonIndex === 'very low' || carbonIndex === 'low') {
+    stats.lowCarbonCommits++
+    stats.sustainableCommits++
+    vscode.window.showInformationMessage(`🌱 Sustainable commit! ${carbonIndex} carbon intensity: ${latestCarbonData.intensity} gCO₂/kWh`)
+  } else if (carbonIndex === 'moderate') {
+    stats.moderateCommits++
+    stats.sustainableCommits++
+    vscode.window.showInformationMessage(`🌱 Sustainable commit! Moderate carbon intensity: ${latestCarbonData.intensity} gCO₂/kWh`)
+  } else {
+    vscode.window.showWarningMessage(`⚡ High carbon commit: ${latestCarbonData.intensity} gCO₂/kWh. Consider committing during low-carbon periods.`)
   }
 
   await extensionContext.workspaceState.update('commitStats', stats)
@@ -137,7 +152,38 @@ export async function resetCommitHistory() {
 }
 
 export async function testCommitTracking() {
+  const workspaceFolder = vscode.workspace.workspaceFolders?.[0]
+  if (!workspaceFolder) {
+    vscode.window.showErrorMessage('No workspace folder found. Open a Git repository to test commit tracking.')
+    return
+  }
+
+  const gitLogFile = path.join(workspaceFolder.uri.fsPath, '.git', 'logs', 'HEAD')
+  
+  if (!fs.existsSync(gitLogFile)) {
+    vscode.window.showErrorMessage('No Git repository found. Initialize a Git repo and make at least one commit to test tracking.')
+    return
+  }
+
+  
+  if (!logWatcher) {
+    vscode.window.showWarningMessage('Commit tracker not initialized. Try reloading the window.')
+    return
+  }
+
   // simulate a commit for testing
   await trackCommit()
-  vscode.window.showInformationMessage('Test commit tracked! Check stats with "VSCarbon: Show Commit Stats"')
+  
+  const stats = await getCommitStats()
+  vscode.window.showInformationMessage(
+    `✅ Test commit tracked! Total commits: ${stats.totalCommits}. ` +
+    'To test real tracking, make an actual commit with "git commit" and watch for notifications.'
+  )
+}
+
+export function cleanupCommitTracker() {
+  if (logWatcher) {
+    logWatcher.close()
+    logWatcher = null
+  }
 }

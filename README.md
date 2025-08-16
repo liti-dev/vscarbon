@@ -1,4 +1,4 @@
-# VSCarbon 🌱
+# VSCarbon
 
 Encourage low-carbon coding habits with real-time electricity grid data! VSCarbon shows you when the electricity grid has lower carbon intensity, helping you time energy-intensive tasks.
 
@@ -14,17 +14,17 @@ Encourage low-carbon coding habits with real-time electricity grid data! VSCarbo
 ✅ **Visual Indicators**: Emoji changes based on carbon levels (😸 for low, 😿 for high)  
 ✅ **Commit Tracker**: Count sustainable git commits  
 ✅ **Dashboard**: Click status bar to see detailed grid mix and commit stats  
-🔄 **Auto-refresh**: Updates every 30 minutes to keep data current  
+🔄 **Auto-refresh**: Updates every 30 minutes to keep data current
 
 ## Installation
 
 ### Option 1: Install from .vsix (Try it now!)
+
 1. Download the latest version from [Releases](https://github.com/liti-dev/vscarbon/releases)
 2. In VS Code: Go to Extension -> More actions -> Install from VSIX, or `Ctrl+Shift+P` → "Extensions: Install from VSIX..."
 3. Select the downloaded .vsix file
 
 ### Option 2: VS Code Marketplace (Coming soon!)
-
 
 ## Getting Started
 
@@ -49,13 +49,24 @@ Encourage low-carbon coding habits with real-time electricity grid data! VSCarbo
 - Currently supports UK postcodes only
 - Requires internet connection for updating data
 
-
 ## Data Source
 
 Carbon intensity data provided by [Carbon Intensity API](https://carbonintensity.org.uk/) - official data from National Grid ESO.
 
+## Changelog
+
+### v0.2.1 (Bug Fix)
+- 🐛 **Fixed commit tracking accuracy**: Commit tracker now only counts actual `git commit` commands, not file changes or staging
+- 🔧 **Improved detection method**: Switched from VS Code Git API monitoring to Git log file watching for more reliable commit detection
+- ✨ **Enhanced test function**: Better error messages and validation in commit tracking test
+
+### v0.2.0
+- ✨ Added commit tracking functionality
+- 📊 Commit statistics dashboard
+- 🌱 Sustainable commit notifications
+
 ## Contributing
 
-This project was created as part of [Branch magazine](https://branch.climateaction.tech/issues/issue-9/everyday-green-coding-bringing-nature-and-grid-awareness-to-visual-studio-code/)'s exploration of everyday green coding practices. 
+This project was created as part of [Branch magazine](https://branch.climateaction.tech/issues/issue-9/everyday-green-coding-bringing-nature-and-grid-awareness-to-visual-studio-code/)'s exploration of everyday green coding practices.
 
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details on how to get started, development setup, and contribution guidelines.
