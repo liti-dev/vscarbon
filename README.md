@@ -1,4 +1,4 @@
-# VSCarbon
+# VSCarbon 🌱
 
 Encourage low-carbon coding habits with real-time electricity grid data! VSCarbon shows you when the electricity grid has lower carbon intensity, helping you time energy-intensive tasks.
 
