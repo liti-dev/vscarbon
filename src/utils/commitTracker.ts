@@ -77,7 +77,7 @@ async function trackCommit() {
     } else if (carbonIndex === 'low') {
       stats.lowCarbonCommits++
       stats.sustainableCommits++
-      vscode.window.showInformationMessage(`🌱 Sustaiinable commit! Low carbon intensity: ${latestCarbonData.intensity} gCO₂/kWh`)
+      vscode.window.showInformationMessage(`🌱 Sustainable commit! Low carbon intensity: ${latestCarbonData.intensity} gCO₂/kWh`)
     } else if (carbonIndex === 'moderate') {
       stats.moderateCommits++
       stats.sustainableCommits++

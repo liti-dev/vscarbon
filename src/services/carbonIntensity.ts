@@ -11,7 +11,7 @@ export default async function getCarbonIntensity(postcode?: string) {
 
     const data = await response.json()
     const regionalData = (data as { data: any[] }).data[0]
-    // console.log(regionalData.data[0].intensity.forecast)
+    
     return {
       intensity: regionalData.data[0].intensity.forecast,
       index: regionalData.data[0].intensity.index,

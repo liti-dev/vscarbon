@@ -12,7 +12,7 @@ suite('VSCarbon Extension Test Suite', () => {
 	test('Commands should be registered', async () => {
 		const commands = await vscode.commands.getCommands(true);
 		assert.ok(commands.includes('vscarbon.showCarbon'));
-		assert.ok(commands.includes('vscarbon.showGridDetails'));
+		assert.ok(commands.includes('vscarbon.showDashboard'));
 		assert.ok(commands.includes('vscarbon.setPostcode'));
 	});
 
