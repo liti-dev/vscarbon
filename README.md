@@ -47,27 +47,15 @@ Encourage low-carbon coding habits with real-time electricity grid data! VSCarbo
 ## Known Issues
 
 - Currently supports UK postcodes only
-- Requires internet connection for real-time data
+- Requires internet connection for updating data
 
 
 ## Data Source
 
 Carbon intensity data provided by [Carbon Intensity API](https://carbonintensity.org.uk/) - official data from National Grid ESO.
 
-## Development
-
-### Building from Source
-```bash
-npm install
-npm run compile
-npx @vscode/vsce package
-```
-
-### Testing
-```bash
-npm test
-```
-
 ## Contributing
 
-This project was created as part of [Branch magazine](https://branch.climateaction.tech/issues/issue-9/everyday-green-coding-bringing-nature-and-grid-awareness-to-visual-studio-code/)'s exploration of everyday green coding practices. Contributions welcome!
+This project was created as part of [Branch magazine](https://branch.climateaction.tech/issues/issue-9/everyday-green-coding-bringing-nature-and-grid-awareness-to-visual-studio-code/)'s exploration of everyday green coding practices. 
+
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details on how to get started, development setup, and contribution guidelines.
