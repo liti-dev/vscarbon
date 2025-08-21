@@ -5,7 +5,7 @@ Encourage low-carbon coding habits with real-time electricity grid data! VSCarbo
 **Make your coding greener, one commit at a time! 🌱**
 
 <img src="https://github.com/user-attachments/assets/c4433f56-9278-47ea-a6e1-d1e1cc27ae9a" width="500"/>
-<img src="https://github.com/user-attachments/assets/c0192d58-6444-4963-9a8c-97d109ec3518" width="500"/>
+<img src="https://github.com/user-attachments/assets/f09854c4-0b44-418e-b2e3-2274adc4e0d7" width="500"/>
 
 ## Features
 
