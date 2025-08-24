@@ -1,4 +1,4 @@
-import { CarbonData, DataSource, CarbonIntensityIndex } from "../../types"
+import { CarbonData, DataSource, CarbonIntensityIndex } from "../../types/carbonData"
 
 interface ElectricityMapsCarbonResponse {
   zone: string
