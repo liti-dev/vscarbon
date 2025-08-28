@@ -53,9 +53,15 @@ export const isEULocationSupported = (location: string): boolean => {
 export const getEUDataSource = (): DataSource => "electricity-maps"
 
 const calculateIntensityIndex = (intensity: number): CarbonIntensityIndex => {
-  if (intensity <= 100) return "low"
-  if (intensity <= 200) return "moderate"
-  if (intensity <= 300) return "high"
+  if (intensity <= 100) {
+    return "low"
+  }
+  if (intensity <= 200) {
+    return "moderate"
+  }
+  if (intensity <= 300) {
+    return "high"
+  }
   return "very high"
 }
 
@@ -64,7 +70,9 @@ const calculatePercentages = (powerBreakdown: Record<string, number>): Record<st
     .filter((value) => value > 0)
     .reduce((sum, value) => sum + value, 0)
 
-  if (totalConsumption === 0) return {}
+  if (totalConsumption === 0) {
+    return {}
+  }
 
   const percentages: Record<string, number> = {}
   for (const [fuelType, value] of Object.entries(powerBreakdown)) {
@@ -79,7 +87,9 @@ const transformPowerBreakdownToMix = (
   powerData: ElectricityMapsPowerResponse
 ): Array<{ fuel: string; perc: number }> => {
   const consumption = powerData.powerConsumptionBreakdown
-  if (!consumption) return []
+  if (!consumption) {
+    return []
+  }
 
   const percentages = calculatePercentages(consumption)
   const groupedByFuel: Record<string, number> = {}
@@ -166,7 +176,9 @@ export const fetchEUCarbonData = async (
     }
 
     const carbonIntensity = await fetchCarbonIntensity(countryCode, apiKey)
-    if (!carbonIntensity) return null
+    if (!carbonIntensity) {
+      return null
+    }
 
     const powerBreakdown = await fetchPowerBreakdown(countryCode, apiKey)
     const generationMix = powerBreakdown ? transformPowerBreakdownToMix(powerBreakdown) : undefined

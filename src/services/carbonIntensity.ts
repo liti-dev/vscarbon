@@ -1,42 +1,69 @@
-import { fetchUKCarbonData } from "./adapters"
+import {
+  CarbonData,
+  CarbonDataResult,
+  CarbonDataError,
+  CarbonDataErrorDetails,
+} from "../types/carbonData"
+import { getCarbonData, isLocationSupported } from "./adapters"
 
-// legacy code for backward compatibility
-export default async function getCarbonIntensity(postcode?: string) {
+export async function carbon(location: string, electricityMapsToken?: string): Promise<CarbonData> {
+  if (!location) {
+    throw new Error("Location is required")
+  }
+
+  const cleanLocation = location.trim()
+
+  if (!isLocationSupported(cleanLocation)) {
+    throw new Error(
+      `Location "${cleanLocation}" is not supported. Use UK outward postcodes (e.g., AL10, M1) or country codes (e.g., DE, JP)`
+    )
+  }
+
   try {
-    if (postcode) {
-      // Use the new functional adapter for postcode-specific requests
-      const carbonData = await fetchUKCarbonData(postcode)
-      if (carbonData) {
-        // Transform to legacy format for backward compatibility
-        return {
-          intensity: carbonData.intensity,
-          index: carbonData.index,
-          mix: carbonData.mix,
-          region: carbonData.region,
-        }
-      }
-      return null
-    } else {
-      // Fallback to England-wide data for requests without postcode
-      const url = "https://api.carbonintensity.org.uk/regional/england"
-      const response = await fetch(url)
+    const data = await getCarbonData(cleanLocation, electricityMapsToken)
 
-      if (!response.ok) {
-        throw new Error(`Error! Status: ${response.status}`)
-      }
-
-      const data = await response.json()
-      const regionalData = (data as { data: any[] }).data[0]
-
-      return {
-        intensity: regionalData.data[0].intensity.forecast,
-        index: regionalData.data[0].intensity.index,
-        mix: regionalData.data[0].generationmix,
-        region: regionalData.shortname || "England",
-      }
+    if (!data) {
+      throw new Error(`Unable to fetch carbon data for location "${cleanLocation}"`)
     }
+
+    return data
   } catch (error) {
-    console.error("Failed to fetch carbon intensity:", error)
-    return null // fallback
+    if (error instanceof Error) {
+      throw error
+    }
+    throw new Error("Unknown error occurred while fetching carbon data")
   }
 }
+
+export async function getCarbonIntensity(
+  location: string,
+  electricityMapsToken?: string
+): Promise<CarbonDataResult> {
+  try {
+    const data = await carbon(location, electricityMapsToken)
+    return { data }
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown error occurred"
+
+    let errorType = CarbonDataError.NETWORK_ERROR
+    if (message.includes("not supported")) {
+      errorType = CarbonDataError.INVALID_LOCATION
+    } else if (message.includes("API key required")) {
+      errorType = CarbonDataError.API_UNAVAILABLE
+    } else if (message.includes("rate limit")) {
+      errorType = CarbonDataError.RATE_LIMITED
+    } else if (message.includes("Unsupported region")) {
+      errorType = CarbonDataError.UNSUPPORTED_REGION
+    }
+
+    const errorDetails: CarbonDataErrorDetails = {
+      type: errorType,
+      message,
+    }
+
+    return { error: errorDetails }
+  }
+}
+
+// re-export pattern
+export { isLocationSupported } from "./adapters"
