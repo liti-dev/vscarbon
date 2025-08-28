@@ -12,7 +12,7 @@ Encourage low-carbon coding habits with real-time electricity grid data! VSCarbo
 ✅ **Real-time Carbon Intensity**: Status bar displays current carbon intensity from the UK electricity grid  
 ✅ **Location-based Data**: Enter your UK outward postcode or [country code for users outside UK](https://portal.electricitymaps.com/developer-hub/api/getting-started#geographical-coverage) for local carbon intensity data  
 ✅ **Visual Indicators**: Emoji changes based on carbon levels (😸 for low, 😿 for high)  
-✅ **Commit Tracker**: Track sustainable git commits locally
+✅ **Commit Tracker**: Track sustainable git commits locally  
 ✅ **Dashboard**: Click status bar to see detailed grid mix and commit stats  
 🔄 **Auto-refresh**: Updates every 30 minutes to keep data current
 
@@ -27,21 +27,24 @@ Encourage low-carbon coding habits with real-time electricity grid data! VSCarbo
 ### Option 2: VS Code Marketplace (Coming soon!)
 
 ## Getting Started
-
+### For UK users
 1. Open Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`)
-2. Run `VSCarbon: Set Postcode` and enter your UK outward postcode (e.g., "SW1A", "M1", "AL10")
+2. Run `VSCarbon: Set Postcode/Country Code` and enter your UK OUTWARD postcode (e.g., SW1A, M1, AL10)
+3. Run `VSCarbon: Show Carbon` to start monitoring
+4. Check the status bar for current carbon intensity, click on it for dashboard showing electricity mix and sustainable commit stats
+### For users outside UK
+1. Register your [Electricity Maps API key](https://portal.electricitymaps.com/auth/login). Free tier allows only 1 country so please choose carefully
+2. Run `VSCarbon: Configure API Key` command to input your key
+3. Run `VSCarbon: Set Postcode/Country Code` and enter country code (e.g., AT, DE, ES)
 3. Run `VSCarbon: Show Carbon` to start monitoring
 4. Check the status bar for current carbon intensity, click on it for dashboard showing electricity mix and sustainable commit stats
 
 ## Commands
 
+- `VSCarbon: Configure API Key` - Input Electricity Maps API key for users outside UK
+- `VSCarbon: Set Postcode/Country Code` - Configure your location
 - `VSCarbon: Show Carbon` - Start monitoring carbon intensity
-- `VSCarbon: Set Postcode` - Configure your UK postcode for regional carbon intensity data
 - `VSCarbon: Reset Commit Stats` - Clear commit stats
-
-## Requirements
-
-- Internet connection for fetching live grid data
 
 ## Known Issues
 
@@ -50,7 +53,8 @@ Encourage low-carbon coding habits with real-time electricity grid data! VSCarbo
 
 ## Data Source
 
-Carbon intensity data provided by [Carbon Intensity API](https://carbonintensity.org.uk/) - official data from National Grid ESO.
+- UK data is provided by [Carbon Intensity API](https://carbonintensity.org.uk/) - National Grid ESO
+- [Electricity Maps](https://portal.electricitymaps.com/developer-hub/api/getting-started#geographical-coverage) for the other countries
 
 ## Changelog
 
@@ -63,6 +67,9 @@ Carbon intensity data provided by [Carbon Intensity API](https://carbonintensity
 - ✨ Added commit tracking functionality
 - 📊 Commit statistics dashboard
 - 🌱 Sustainable commit notifications
+
+### v1.0.0
+- Expanded country coverage beyond the UK (country list [here](https://portal.electricitymaps.com/developer-hub/api/getting-started#geographical-coverage)) thanks to Electricity Maps API
 
 ## Contributing
 
