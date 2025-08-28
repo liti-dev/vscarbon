@@ -10,9 +10,9 @@ Encourage low-carbon coding habits with real-time electricity grid data! VSCarbo
 ## Features
 
 ✅ **Real-time Carbon Intensity**: Status bar displays current carbon intensity from the UK electricity grid  
-✅ **Location-based Data**: Enter your UK postcode for regional carbon intensity data  
+✅ **Location-based Data**: Enter your UK outward postcode or [country code for users outside UK](https://portal.electricitymaps.com/developer-hub/api/getting-started#geographical-coverage) for local carbon intensity data  
 ✅ **Visual Indicators**: Emoji changes based on carbon levels (😸 for low, 😿 for high)  
-✅ **Commit Tracker**: Count sustainable git commits  
+✅ **Commit Tracker**: Track sustainable git commits locally
 ✅ **Dashboard**: Click status bar to see detailed grid mix and commit stats  
 🔄 **Auto-refresh**: Updates every 30 minutes to keep data current
 
@@ -42,11 +42,10 @@ Encourage low-carbon coding habits with real-time electricity grid data! VSCarbo
 ## Requirements
 
 - Internet connection for fetching live grid data
-- UK postcode for regional carbon intensity data
 
 ## Known Issues
 
-- Currently supports UK postcodes only
+- Currently supports UK regional data and country-level data for the other countries
 - Requires internet connection for updating data
 
 ## Data Source
