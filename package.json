@@ -40,7 +40,7 @@
       },
       {
         "command": "vscarbon.setPostcode",
-        "title": "VSCarbon: Set Postcode"
+        "title": "VSCarbon: Set Postcode/Country"
       },
       {
         "command": "vscarbon.testCommitTracking",
@@ -49,6 +49,10 @@
       {
         "command": "vscarbon.resetCommitStats",
         "title": "VSCarbon: Reset Commit Stats"
+      },
+      {
+        "command": "vscarbon.configureApiKey",
+        "title": "VSCarbon: Configure Electricity Maps API Key (EU Countries)"
       }
     ],
     "configuration": {
@@ -65,6 +69,11 @@
           "minimum": 5,
           "maximum": 120,
           "description": "Update interval in minutes for carbon intensity data"
+        },
+        "vscarbon.electricityMapsApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "API key for Electricity Maps (get free key at electricitymaps.com - free tier allows 1 country)"
         }
       }
     }

@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
-import getCarbonIntensity from '../services/carbonIntensity';
+import getCarbonIntensity from '../services/carbonIntensity-legacy';
 
 suite('VSCarbon Extension Test Suite', () => {
 	vscode.window.showInformationMessage('Start VSCarbon tests.');
