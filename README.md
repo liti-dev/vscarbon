@@ -33,7 +33,7 @@ Encourage low-carbon coding habits with real-time electricity grid data! VSCarbo
 3. Run `VSCarbon: Show Carbon` to start monitoring
 4. Check the status bar for current carbon intensity, click on it for dashboard showing electricity mix and sustainable commit stats
 ### For users outside UK
-1. Register your [Electricity Maps API key](https://portal.electricitymaps.com/auth/login). Free tier allows only 1 country so please choose carefully
+1. Register your [Electricity Maps API key](https://portal.electricitymaps.com/auth/login). Free tier allows only 1 country so please choose carefully. Free tier supports country-level data (e.g., ES for Spain) but does not yet support sub-regional zones (e.g., ES-CE for Ceuta). We're working on adding regional support in future releases
 2. Run `VSCarbon: Configure API Key` command to input your key
 3. Run `VSCarbon: Set Postcode/Country Code` and enter country code (e.g., AT, DE, ES)
 3. Run `VSCarbon: Show Carbon` to start monitoring
