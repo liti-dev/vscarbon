@@ -62,6 +62,10 @@ Encourage low-carbon coding habits with real-time electricity grid data! VSCarbo
 
 ## Changelog
 
+### v1.0.0
+
+- Expanded country coverage beyond the UK (country list [here](https://portal.electricitymaps.com/developer-hub/api/getting-started#geographical-coverage)) thanks to Electricity Maps API
+
 ### v0.2.1 (Bug Fix)
 
 - 🐛 **Fixed commit tracking accuracy**: Commit tracker now only counts actual `git commit` commands, not file changes or staging
